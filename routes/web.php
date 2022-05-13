@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Controllers\NewsletterController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\PostCommentController;
-use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Validation\ValidationException;
 
 
 /*
@@ -19,30 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('newsletter', function(){
-
-    request()->validate([
-        'email' => 'required|email'
-    ]);
-
-
-    try{
-
-    }catch(\Exception $e){
-        throw \Illuminate\Validation\ValidationException::withMessages([
-            'email' => 'This email could not be added to our newsletter list.',
-        ]);
-    }
-
-    return redirect('/')
-        ->with('success','You are now signed up for our newsletter');
-});
 
 Route::get('/', [PostController::class, 'index'])->name('home');
 
 Route::get('posts/{post:slug}', [PostController::class, 'show']);
 Route::post('posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 
+Route::post('newsletter', NewsletterController::class);
 
 Route::get('register', [RegisterController::class,'create'])->middleware('guest');
 Route::post('register', [RegisterController::class,'store'])->middleware('guest');
