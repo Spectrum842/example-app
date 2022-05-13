@@ -9,6 +9,8 @@ class Comment extends Model
 {
     use HasFactory;
 
+    //protected $guarded = [];
+
     public function post(){
         return $this->belongsTo(Post::class); // We dont preciser "post_id" here because of the name of thefunction
                                               // Laravel is gonna look for the column in DB with "FUNCTIONAME_id"
