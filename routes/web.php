@@ -20,46 +20,48 @@ use Illuminate\Validation\ValidationException;
 |
 */
 
+Route::name('front.')->group(function(){
+    Route::get('/', [PostController::class, 'index'])->name('home');
+    Route::middleware(['guest'])->group(function(){
+        Route::get('post/{post:slug}', [PostController::class, 'show'])->name('posts','post');
+        Route::post('posts/{post:slug}/comments', [PostCommentController::class, 'store']);
 
-Route::get('/', [PostController::class, 'index'])->name('home');
+        Route::post('newsletter', NewsletterController::class)->name('newsletter.store');
 
-Route::get('posts/{post:slug}', [PostController::class, 'show']);
-Route::post('posts/{post:slug}/comments', [PostCommentController::class, 'store']);
+        Route::resource('register', RegisterController::class)->only(['create', 'store']);
+        //Route::post('register', [RegisterController::class,'store'])->name('guest');
 
-Route::post('newsletter', NewsletterController::class);
+        Route::get('login', [SessionController::class,'create'])->name('login');
+        Route::post('session', [SessionController::class,'store'])->name('login.store');
+    });
 
-Route::get('register', [RegisterController::class,'create'])->middleware('guest');
-Route::post('register', [RegisterController::class,'store'])->middleware('guest');
 
-Route::get('login', [SessionController::class,'create'])->middleware('guest');
-Route::post('session', [SessionController::class,'store'])->middleware('guest');
+});
 
-Route::post('logout', [SessionController::class,'destroy'])->middleware('auth');
 
-// $str=Request::url();
-// $del="127.0.0.1:8000";
-// $pos=strpos($str, $del);
-// $important1=substr($str, $pos+strlen($del), strlen($str)-1);
-// $important=ucfirst($important1);
-// $asif=explode("/", $important);
+Route::middleware('auth')->group(function(){
+    Route::post('logout', [SessionController::class,'destroy'])->name('logout');
+});
 
-// $asif1=explode("/", $important1);
+Route::middleware('admin')->prefix('admin')->group(function(){
+    Route::resource('posts/create', PostController::class);
+//    Route::post('admin/posts', [PostController::class, 'store']);
+});
 
-// //echo $important;
-// $post=$asif1[0];
-// $post1=$asif1[1];
-// if(isset($asif1[2]))
-// {
-//    $post2=$asif1[2];
-// }
-// if(!(isset($post2)))
-// {
 
-//    Route::match(array('GET','POST'),$important1, $asif[0].'Controller@'.$asif[1]);
-// }
-// if(isset($post2))
-// {      Route::match(array('GET','POST'),$post.'/'.$post1.'/{id}',$asif[0].'Controller@'.$asif[1]);
-// }
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+// Route::get('/', [PostController::class, 'index'])->name('home');
+
+// Route::get('posts/{post:slug}', [PostController::class, 'show']);
+// Route::post('posts/{post:slug}/comments', [PostCommentController::class, 'store']);
+
+// Route::post('newsletter', NewsletterController::class);
+
+// Route::get('register', [RegisterController::class,'create'])->middleware('guest');
+// Route::post('register', [RegisterController::class,'store'])->middleware('guest');
+
+// Route::get('login', [SessionController::class,'create'])->middleware('guest');
+// Route::post('session', [SessionController::class,'store'])->middleware('guest');
+
+// Route::post('logout', [SessionController::class,'destroy'])->middleware('auth');
+
+// Route::get('admin/posts/create',[PostController::class, 'create'])->middleware('admin');

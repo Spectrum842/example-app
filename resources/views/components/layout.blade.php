@@ -15,7 +15,7 @@
     <section class="px-6 py-8">
         <nav class="md:flex md:justify-between md:items-center">
             <div>
-                <a href="/">
+                <a href="{{ route('front.home') }}">
                     <img src="/images/logo.svg" alt="Laracasts Logo" width="165" height="16">
                 </a>
             </div>
@@ -28,12 +28,12 @@
                         @csrf
                         <button type="submit">Log Out</button>
                     </form>
-               
+
                 @else
                     <a href="/register" class="text-xs font-bold uppercase">Register</a>
                     <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
                 @endauth
-                
+
 
                 <a href="#newsletter" class="bg-blue-500 ml-3 rounded-full text-xs font-semibold text-white uppercase py-3 px-5">
                     Subscribe for Updates
@@ -51,16 +51,16 @@
             <div class="mt-10">
                 <div class="relative inline-block mx-auto lg:bg-gray-200 rounded-full">
 
-                    <form method="POST" action="/newsletter" class="lg:flex text-sm">
+                    <form method="POST" action="{{ route('front.newsletter.store')}}" class="lg:flex text-sm">
                         @csrf
                         <div class="lg:py-3 lg:px-5 flex items-center">
                             <label for="email" class="hidden lg:inline-block">
                                 <img src="/images/mailbox-icon.svg" alt="mailbox letter">
                             </label>
                             <div>
-                                <input id="email" 
+                                <input id="email"
                                         name="email"
-                                        type="text" 
+                                        type="text"
                                         placeholder="Your email address"
                                         class="lg:bg-transparent py-2 lg:py-0 pl-4 focus-within:outline-none">
 

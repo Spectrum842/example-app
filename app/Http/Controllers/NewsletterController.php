@@ -20,7 +20,7 @@ class NewsletterController extends Controller
             ]);
         }
 
-        return redirect('/')
+        return redirect()->route('front.home')
             ->with('success','You are now signed up for our newsletter');
         }
 }

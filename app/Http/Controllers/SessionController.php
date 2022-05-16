@@ -24,11 +24,11 @@ class SessionController extends Controller
             throw ValidationException::withMessages([
                 'email' => 'Your provided credentials could not be found. Please try again.'
             ]);
-            
+
         }
 
         session()->regenerate();
-        
+
         return redirect('/')->with('success','Welcome Back');
 
         //Other method than throw( totally fine)
@@ -43,5 +43,5 @@ class SessionController extends Controller
         return redirect('')->with('success', 'Goodbye !');
     }
 
-    
+
 }

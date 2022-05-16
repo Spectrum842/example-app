@@ -2,13 +2,13 @@
     <section class="px-6 py-8">
         <main class="max-w-lg mx-auto mt-10 bg-gray-100 border border-gray-200 p-6 rounded-xl">
             <h1 class="text-center font-bold text-xl">Register ! </h1>
-            <form method="POST" action="/register" class="mt-10">
+            <form method="POST" action="{{ route('front.login.store') }}" class="mt-10">
                 <!-- csrf expands to a hidden input to check behind the scenes -->
                 @csrf
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                         for="name"
-                    > 
+                    >
                         name
                     </label>
 
@@ -28,7 +28,7 @@
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                         for="username"
-                    > 
+                    >
                         Username
                     </label>
 
@@ -48,7 +48,7 @@
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                         for="email"
-                    > 
+                    >
                         Email
                     </label>
 
@@ -68,7 +68,7 @@
                 <div class="mb-6">
                     <label class="block mb-2 uppercase font-bold text-xs text-gray-700"
                         for="password"
-                    > 
+                    >
                         Password
                     </label>
 
@@ -90,7 +90,7 @@
                         Submit
                     </button>
                 </div>
-                
+
             </form>
         </main>
     </section>
