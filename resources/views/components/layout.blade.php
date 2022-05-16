@@ -23,15 +23,25 @@
             <div class="mt-8 md:mt-0">
 
                 @auth
-                    <span class="text-xs font-bold uppercse">Welcome, {{ auth()->user()->name }} !</span>
-                    <form method="post" action="/logout" class="text-xs font-semibold text-blue-500 ml-6 ">
+                <x-dropdown>
+                    <x-slot name="trigger">
+                        <button class="text-xs font-bold uppercse">Welcome, {{ auth()->user()->name }} !</button>
+                    </x-slot>
+
+                    <x-dropdown-item href="{{ route('admin.posts') }}" :active="request()->route('admin/posts')">All posts</x-dropdown-item>
+                    <x-dropdown-item href="{{ route('admin.create') }}" :active="request()->route('admin/posts/create')">New Post</x-dropdown-item>
+                    <x-dropdown-item href="#" x-data="{}" @click.prevent="document.querySelector('#logout-form').submit()">Log Out</x-dropdown-item>
+                </x-dropdown>
+
+
+                    <form id="logout-form" method="post" action="{{route('logout')}}" class="hidden">
                         @csrf
                         <button type="submit">Log Out</button>
                     </form>
 
                 @else
-                    <a href="/register" class="text-xs font-bold uppercase">Register</a>
-                    <a href="/login" class="ml-6 text-xs font-bold uppercase">Log In</a>
+                    <a href="{{route('register')}}" class="text-xs font-bold uppercase">Register</a>
+                    <a href="{{route('login')}}" class="ml-6 text-xs font-bold uppercase">Log In</a>
                 @endauth
 
 

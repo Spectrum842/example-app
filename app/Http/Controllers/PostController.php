@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Post\Store;
 use App\Models\Category;
 use App\Models\Post;
+use Illuminate\Validation\Rule;
 use LDAP\Result;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,10 +28,5 @@ class PostController extends Controller
         ]);
     }
 
-    public function create(Post $post){
-
-
-        return view('posts.create');
-    }
 
 }
